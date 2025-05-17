@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selamat Datang - AI Character</title>
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+<body class="light-mode">
+    <div id="app" class="login-container">
+        <header class="login-header">
+            <h1>Selamat Datang</h1>
+            <p>Silakan masuk atau daftar untuk melanjutkan.</p>
+        </header>
+
+        <main class="login-main">
+            <div id="error-message" class="error-state hidden" role="alert" aria-live="assertive">
+                </div>
+
+            <section id="login-section" class="auth-section">
+                
+                <form id="login-form" aria-labelledby="login-section">
+                    <div class="form-group">
+                         <label for="login-email" class="visually-hidden">Email:</label> <div class="input-icon-container">
+                            <i class="fas fa-user icon"></i> <input type="email" id="login-email" placeholder="Type your email..." required aria-required="true" autocomplete="email" /> </div>
+                    </div>
+                    <div class="form-group">
+                         <label for="login-password" class="visually-hidden">Password:</label> <div class="input-icon-container">
+                            <i class="fas fa-lock icon"></i> <input type="password" id="login-password" placeholder="Type your password..." required aria-required="true" autocomplete="current-password" /> </div>
+                    </div>
+
+                    <p class="auth-forgot-password"><a href="#" id="forgot-password-link">Lupa Password?</a></p>
+
+                    <button type="submit" id="login-btn" class="primary-btn">Masuk</button>
+                </form>
+
+                 <p class="auth-switch">Belum punya akun? <a href="#" id="show-signup-link" aria-label="Switch to sign up form">Daftar di sini</a></p>
+
+                 <div class="separator">
+                     <span>Atau Daftar Dengan</span> </div>
+
+                <div class="social-login-icons">
+                    <button class="social-icon google-icon" aria-label="Sign up with Google"><i class="fab fa-google"></i></button>
+                    <button class="social-icon facebook-icon" aria-label="Sign up with Facebook"><i class="fab fa-facebook-f"></i></button>
+                    <button class="social-icon twitter-icon" aria-label="Sign up with Twitter"><i class="fab fa-twitter"></i></button>
+                    </div>
+
+            </section>
+
+            <section id="signup-section" class="auth-section hidden">
+                <h2>Daftar</h2>
+                <form id="signup-form" aria-labelledby="signup-section">
+                    <div class="form-group">
+                         <label for="signup-email" class="visually-hidden">Email:</label>
+                         <div class="input-icon-container">
+                             <i class="fas fa-user icon"></i> <input type="email" id="signup-email" placeholder="Type your email" required aria-required="true" autocomplete="email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                         <label for="signup-password" class="visually-hidden">Password:</label>
+                        <div class="input-icon-container">
+                            <i class="fas fa-lock icon"></i> <input type="password" id="signup-password" placeholder="Type your password" required aria-required="true" autocomplete="new-password" />
+                        </div>
+                    </div>
+                     <button type="submit" id="signup-btn" class="primary-btn">Daftar</button>
+                </form>
+
+                <p class="auth-switch">Sudah punya akun? <a href="#" id="show-login-link" aria-label="Switch to login form">Masuk di sini</a></p>
+
+                 <div class="separator">
+                     <span>Atau Masuk Dengan</span> </div>
+
+                <div class="social-login-icons">
+                    <button class="social-icon google-icon" aria-label="Sign in with Google"><i class="fab fa-google"></i></button>
+                    <button class="social-icon facebook-icon" aria-label="Sign in with Facebook"><i class="fab fa-facebook-f"></i></button>
+                    <button class="social-icon twitter-icon" aria-label="Sign in with Twitter"><i class="fab fa-twitter"></i></button>
+                    </div>
+
+            </section>
+
+             <section id="anonymous-login-section" class="auth-section-anonymous">
+                  <p>- ATAU -</p>
+                  <button id="anonymous-login-btn" class="secondary-btn">👥 Anonymous</button>
+             </section>
+
+        </main>
+
+        <footer class="login-footer">
+            <p>&copy; 2025 AI Character App</p>
+        </footer>
+
+         <div id="overlay" class="overlay hidden" aria-hidden="true"></div> </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/navigation.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/musicPlayer.js"></script>
+    <script type="module" src="js/login.js"></script>
+
+
+</body>
+</html>

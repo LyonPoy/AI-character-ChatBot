@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chat Character</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+ 
+</head>
+<body class="light-mode">
+    <div id="app">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Messages</h1>
+                <nav class="header-actions" aria-label="Main Menu">
+                    <button id="menu-btn" class="icon-btn" aria-label="Open menu">
+                        <i class="fas fa-ellipsis-vertical" aria-hidden="true"></i>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Chat List Section -->
+            <section id="chat-list" class="chat-list" role="region" aria-label="Chat List"></section>
+
+            <!-- No Chats Available Section -->
+            <section id="no-chats" class="no-chats" role="region" aria-label="No Chats Available">
+                <div class="empty-state">
+                    <i class="fas fa-comments fa-4x" aria-hidden="true"></i>
+                    <p>No conversations yet</p>
+                    <p class="secondary-text">Start a chat from the Characters tab!</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="context-menu hidden" aria-hidden="true">
+            <ul>
+                <li id="export-all-chats"><i class="fas fa-file-export" aria-hidden="true"></i> Export All Chats</li>
+                <li id="import-chats"><i class="fas fa-file-import" aria-hidden="true"></i> Import Chats</li>
+                <li id="backup-chats"><i class="fas fa-cloud-upload-alt" aria-hidden="true"></i> Backup</li>
+                <li id="restore-chats"><i class="fas fa-cloud-download-alt" aria-hidden="true"></i> Restore</li>
+                <li id="delete-all-chats" class="danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete All Chats</li>
+                <li id="close-menu"><i class="fas fa-times" aria-hidden="true"></i> Close</li>
+            </ul>
+        </div>
+
+        <!-- Chat Item Context Menu -->
+        <div id="chat-item-context-menu" class="context-menu hidden" aria-hidden="true">
+            <ul>
+                <li id="delete-session" class="danger"><i class="fas fa-trash" aria-hidden="true"></i> Delete Conversation</li>
+                <li id="archive-session"><i class="fas fa-archive" aria-hidden="true"></i> Archive Conversation</li>
+                <li id="close-context-menu"><i class="fas fa-times" aria-hidden="true"></i> Close</li>
+            </ul>
+        </div>
+
+        <!-- Status Message Area -->
+        <div id="status-message-area" class="status-message-area hidden" aria-hidden="true" role="status"></div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+            <a href="index.html" class="nav-item active" aria-current="page">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+                <span>Chats</span>
+            </a>
+            <a href="character.html" class="nav-item">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>Characters</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i class="fas fa-gear" aria-hidden="true"></i>
+                <span>Settings</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user" aria-hidden="true"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <div id="overlay" class="overlay hidden" aria-hidden="true"></div>
+    </div>
+
+    <!-- Chat Item Template -->
+    <template id="chat-item-template">
+        <div class="chat-item" data-session-id="" data-character-id="">
+            <div class="avatar">
+                <img src="" alt="Character Avatar" />
+                <span class="status-dot online" aria-hidden="true"></span>
+            </div>
+            <div class="chat-details">
+                <div class="top-row">
+                    <h3 class="character-name"></h3>
+                    <span class="timestamp"></span>
+                </div>
+                <div class="bottom-row">
+                    <p class="last-message"></p>
+                    <div class="chat-indicators">
+                        <span class="message-status" aria-hidden="true">
+                            <i class="fas fa-check-double" aria-hidden="true"></i>
+                        </span>
+                        <span class="unread-count hidden">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <audio id="background-music" loop preload="auto">
+        <source src="/music/default-track.mp3" type="audio/mpeg">
+    </audio>
+
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/navigation.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/musicPlayer.js"></script>
+    <script type="module" src="js/index.js"></script>
+
+
+</body>
+</html>

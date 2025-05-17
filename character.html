@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Characters - AI Character</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+</head>
+<body class="light-mode character-page">
+    <div id="app">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Characters</h1>
+                <nav class="header-actions" aria-label="Character Actions">
+                    <button id="add-character-btn" class="icon-btn" aria-label="Add New Character">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                    </button>
+                    <button id="character-menu-btn" class="icon-btn" aria-label="More Options">
+                        <i class="fas fa-ellipsis-vertical" aria-hidden="true"></i>
+                    </button>
+                </nav>
+            </div>
+       <!-- Tab Navigation -->
+       <nav class="tab-menu" role="tablist">
+    <button class="tab-btn active" data-tab="my-characters" role="tab" aria-selected="true">My Characters</button>
+    <button class="tab-btn" data-tab="public-characters" role="tab" aria-selected="false">Public Characters</button>
+        </nav>
+            </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- My Characters Tab -->
+            <section id="my-characters" class="tab-content" role="tabpanel" aria-labelledby="my-characters-tab-btn">
+                <div id="character-grid" class="character-grid" role="region" aria-label="My Characters List"></div>
+                <div id="no-characters" class="no-characters empty-state hidden" role="region" aria-label="No Characters Available">
+                    <i class="fas fa-users fa-4x" aria-hidden="true"></i>
+                    <p>You haven't created any characters yet.</p>
+                    <button id="create-character-btn" class="primary-btn">Create New Character</button>
+                </div>
+            </section>
+
+            <!-- Public Characters Tab -->
+            <section id="public-characters" class="tab-content hidden" role="tabpanel" aria-labelledby="public-characters-tab-btn">
+                
+                <div id="public-characters-loading" class="loading-indicator hidden">
+                    <i class="fas fa-spinner fa-spin fa-2x" aria-hidden="true"></i> Loading...
+                </div>
+                <div id="public-characters-error-state" class="error-state hidden"></div>
+                <div id="public-characters-empty-state" class="empty-state hidden" role="region" aria-label="No Public Characters Available"></div>
+                <div id="public-character-display-area" class="character-grid" role="region" aria-label="Public Characters List"></div>
+            </section>
+        </main>
+
+        <!-- Character Menu -->
+        <div id="character-menu" class="context-menu hidden" aria-hidden="true">
+            <ul>
+                <li id="import-character"><i class="fas fa-file-import" aria-hidden="true"></i> Import Character</li>
+                <li id="export-all-characters"><i class="fas fa-file-export" aria-hidden="true"></i> Export All My Characters</li>
+                <li id="sort-characters"><i class="fas fa-sort-amount-down" aria-hidden="true"></i> Sort By...</li>
+                <li id="close-character-menu"><i class="fas fa-times" aria-hidden="true"></i> Close</li>
+            </ul>
+        </div>
+
+        <!-- Sort Options -->
+        <div id="sort-options" class="context-menu hidden" aria-hidden="true">
+            <h4>Sort My Characters By</h4>
+            <ul>
+                <li id="sort-option-created">Created Date</li>
+                <li id="sort-option-name">Name (A-Z)</li>
+                <li id="close-sort-options"><i class="fas fa-times" aria-hidden="true"></i> Cancel</li>
+            </ul>
+        </div>
+
+        <!-- Character Modal -->
+        <div id="character-modal" class="modal hidden" aria-hidden="true">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h3 id="character-modal-title">Add New Character</h3>
+                    <button id="close-character-modal" class="close-btn" aria-label="Close Modal"><i class="fas fa-times" aria-hidden="true"></i></button>
+                </header>
+                <main class="modal-body">
+                    <form id="character-form">
+                        <div class="form-group avatar-upload large">
+                            <div class="avatar-preview xl">
+                                <img id="char-avatar-preview" src="/api/placeholder/150/150" alt="Avatar Preview" />
+                            </div>
+                            <label for="char-avatar-upload" class="avatar-edit-btn" aria-label="Upload Avatar">
+                                <i class="fas fa-camera" aria-hidden="true"></i>
+                                <input type="file" id="char-avatar-upload" accept="image/*" />
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-name">Name:</label>
+                            <input type="text" id="char-name" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-tagline">Tagline:</label>
+                            <input type="text" id="char-tagline" maxlength="100" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-personality">Personality (Keywords):</label>
+                            <input type="text" id="char-personality" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-description">Full Description:</label>
+                            <textarea id="char-description" rows="4"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-greeting">Greeting Message:</label>
+                            <input type="text" id="char-greeting" placeholder="e.g., 'Hi there!'" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-farewell">Farewell Message:</label>
+                            <input type="text" id="char-farewell" placeholder="e.g., 'See you later!'" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-ai-model">AI Model:</label>
+                            <select id="char-ai-model">
+                                <option value="gpt-3.5-turbo">GPT-3.5 Turbo (Default)</option>
+                                <option value="gpt-4o">GPT-4o</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group slider-group">
+                            <label for="char-memory-slider">Memory Strength:</label>
+                            <div class="slider-with-value">
+                                <input type="range" id="char-memory-slider" min="0" max="10" value="5" />
+                                <span id="char-memory-value">Medium</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-quick-replies">Quick Replies (Comma-separated):</label>
+                            <input type="text" id="char-quick-replies" placeholder="e.g., Yes, No, Maybe, LOL" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="char-emotes">Emotes (Comma-separated Emojis):</label>
+                            <input type="text" id="char-emotes" placeholder="e.g., 😂, ❤️, 👍, 🤔" />
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="char-is-nsfw">NSFW Character:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="char-is-nsfw">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="form-group toggle-group">
+                            <label for="char-is-public">Make Public:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="char-is-public">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </form>
+                </main>
+                <footer class="modal-footer">
+                    <button id="save-character-btn" class="primary-btn">Save Character</button>
+                    <button id="cancel-character-btn" class="secondary-btn">Cancel</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Character Quick View -->
+        <div id="character-quick-view" class="modal hidden" aria-hidden="true">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h3 id="quick-view-name">Character Name</h3>
+                    <button id="close-quick-view" class="close-btn" aria-label="Close Quick View"><i class="fas fa-times" aria-hidden="true"></i></button>
+                </header>
+                <main class="modal-body">
+                    <div class="quick-view-header">
+                        <div class="avatar large">
+                            <img id="quick-view-avatar" src="/api/placeholder/150/150" alt="Character Avatar" />
+                        </div>
+                        <div class="quick-view-info">
+                            <p id="quick-view-tagline" class="tagline"></p>
+                            <p id="quick-view-personality" class="personality-keywords"></p>
+                            <div class="quickview-stats">
+                                <span><i class="fas fa-comment-dots" aria-hidden="true"></i> Chats: <span id="quick-view-chat-count">N/A</span></span>
+                                <span><i class="fas fa-heart" aria-hidden="true"></i> Likes: <span id="quick-view-like-count">N/A</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-view-details">
+                        <h4>Description:</h4>
+                        <p id="quick-view-full-description"></p>
+                    </div>
+                </main>
+                <footer class="modal-footer">
+                    <button id="start-chat-with-character-btn" class="primary-btn"><i class="fas fa-comment" aria-hidden="true"></i> Start Chat</button>
+                    <button id="edit-character-btn-quickview" class="secondary-btn"><i class="fas fa-edit" aria-hidden="true"></i> Edit Character</button>
+                    <button id="delete-character-btn-quickview" class="danger-btn"><i class="fas fa-trash" aria-hidden="true"></i> Delete Character</button>
+                    <button id="add-to-my-characters-btn" class="secondary-btn hidden"><i class="fas fa-user-plus" aria-hidden="true"></i> Add to My Characters</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+                <span>Chats</span>
+            </a>
+            <a href="character.html" class="nav-item active" aria-current="page">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>Characters</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <i class="fas fa-gear" aria-hidden="true"></i>
+                <span>Settings</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user" aria-hidden="true"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <div id="overlay" class="overlay hidden" aria-hidden="true"></div>
+    </div>
+
+    <!-- Character Card Template -->
+    <template id="character-card-template">
+        <div class="character-card" data-character-id="">
+            <div class="card-image">
+                <img src="" alt="Character Avatar" />
+                <span class="nsfw-indicator hidden" aria-label="NSFW Content">NSFW</span>
+            </div>
+            <div class="card-content">
+                <h3 class="char-name"></h3>
+                <p class="char-tagline"></p>
+            </div>
+        </div>
+    </template>
+
+ <audio id="background-music" loop preload="auto">
+    <source src="/music/default-track.mp3" type="audio/mpeg">
+</audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/navigation.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/musicPlayer.js"></script>
+    <script type="module" src="js/character.js"></script>
+
+
+</body>
+</html>
